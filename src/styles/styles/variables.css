@@ -1,0 +1,42 @@
+:root {
+    /* Color Variables */
+    --color-primary: #EC4899;  /* Pink-500 */
+    --color-primary-light: #F9A8D4;  /* Pink-300 */
+    --color-primary-dark: #BE185D;  /* Pink-700 */
+    
+    --color-secondary: #8B5CF6;  /* Purple-500 */
+    --color-secondary-light: #A78BFA;  /* Purple-400 */
+    --color-secondary-dark: #6D28D9;  /* Purple-700 */
+    
+    --color-background: #FDF2F8;  /* Pink-50 */
+    --color-surface: #FFFFFF;
+    --color-text: #1F2937;  /* Gray-800 */
+    
+    /* Spacing Variables */
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    
+    /* Border Radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    
+    /* Typography */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    
+    /* Transitions */
+    --transition-fast: 150ms ease-in-out;
+    --transition-normal: 300ms ease-in-out;
+    --transition-slow: 500ms ease-in-out;
+  }

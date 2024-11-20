@@ -1,0 +1,119 @@
+.messages-section {
+    padding: 4rem 1rem;
+    background: linear-gradient(135deg, #FDF2F8, #FCE7F3);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+  
+  .messages-container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .messages-title {
+    text-align: center;
+    font-family: var(--font-serif);
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 3rem;
+  }
+  
+  .letter-container {
+    margin-bottom: 3rem;
+  }
+  
+  .letter-card {
+    background: var(--color-surface);
+    padding: 2rem;
+  }
+  
+  .letter-content {
+    font-family: var(--font-serif);
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+  
+  .dear {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 2rem;
+  }
+  
+  .letter-paragraph {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    text-align: justify;
+  }
+  
+  .letter-closing {
+    margin-top: 3rem;
+    text-align: right;
+  }
+  
+  .signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    margin-top: 1rem;
+  }
+  
+  .quotes-container {
+    display: grid;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  
+  .quote-card {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    text-align: center;
+    box-shadow: var(--shadow-md);
+  }
+  
+  .quote-text {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    color: var(--color-primary-dark);
+    font-style: italic;
+    line-height: 1.6;
+  }
+  
+  /* Add decorative elements */
+  .letter-card::before {
+    content: '❤️';
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    font-size: 2rem;
+    opacity: 0.8;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .messages-title {
+      font-size: 2rem;
+    }
+  
+    .letter-card {
+      padding: 1.5rem;
+    }
+  
+    .dear {
+      font-size: 1.25rem;
+    }
+  
+    .letter-paragraph {
+      font-size: 1rem;
+    }
+  
+    .signature {
+      font-size: 1.5rem;
+    }
+  
+    .quote-text {
+      font-size: 1.1rem;
+    }
+  }

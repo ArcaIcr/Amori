@@ -1,0 +1,103 @@
+.hero-section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-lilac-light), var(--color-fuchsia-light));
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-content {
+    text-align: center;
+    padding: 2rem;
+    max-width: 800px;
+    z-index: 1;
+  }
+  
+  .hero-title {
+    font-family: var(--font-serif);
+    font-size: 4rem;
+    color: var(--color-violet);
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.5rem;
+    color: var(--color-lilac-dark);
+    margin-bottom: 2rem;
+    opacity: 0.9;
+  }
+  
+  .hero-message {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    margin: 2rem 0;
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .love-quote {
+    font-family: var(--font-serif);
+    font-size: 1.5rem;
+    color: var(--color-fuchsia-dark);
+    font-style: italic;
+    line-height: 1.6;
+  }
+  
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  /* Floating Hearts Animation */
+  .floating-hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+  }
+  
+  .floating-hearts::before,
+  .floating-hearts::after {
+    content: '❤️';
+    position: absolute;
+    font-size: 1.5rem;
+    animation: floating 6s ease-in-out infinite;
+    opacity: 0.6;
+  }
+  
+  .floating-hearts::before {
+    left: 10%;
+    animation-delay: -2s;
+  }
+  
+  .floating-hearts::after {
+    right: 10%;
+    animation-delay: -4s;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 3rem;
+    }
+  
+    .hero-subtitle {
+      font-size: 1.25rem;
+    }
+  
+    .love-quote {
+      font-size: 1.25rem;
+    }
+  
+    .hero-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
