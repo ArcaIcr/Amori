@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PhotoCard from './PhotoCard';
 import './GalleryStyles.css';
+import BabyAmori from '../../assets/images/BabyAmori.png';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -10,9 +11,9 @@ const Gallery = () => {
   const photos = [
     {
       id: 1,
-      src: '/path-to-your-image-1.jpg',
-      caption: 'Our First Date',
-      date: 'Remember when...'
+      src: BabyAmori,
+      caption: 'Cutest Pic Ever',
+      date: 'Remember when you send me this'
     },
     // Add more photos here
   ];
@@ -43,7 +44,7 @@ const Gallery = () => {
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          Our Beautiful Moments
+          You that I find Most Pretty
         </motion.h2>
 
         <div className="gallery-grid">
