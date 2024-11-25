@@ -5,7 +5,7 @@ import Gallery from './components/Gallery/Gallery';
 import Messages from './components/Messages/Messages';
 import Timeline from './components/Timeline/Timeline';
 import './App.css';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,8 +23,16 @@ function App() {
   const toggleMusic = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
+      toast.success('Music is now playing.', {
+        position: 'bottom-right',
+        autoClose: 3000,
+      });
     } else {
       audioRef.current.pause();
+      toast.info('Music is paused.', {
+        position: 'bottom-right',
+        autoClose: 3000,
+      });
     }
   };
 
