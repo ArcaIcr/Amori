@@ -4,6 +4,8 @@ import Hero from './components/Hero/Hero';
 import Gallery from './components/Gallery/Gallery';
 import Messages from './components/Messages/Messages';
 import Timeline from './components/Timeline/Timeline';
+import FavoritesAndPersonalities from "./components/Favorites/FavoritesAndPersonalities";
+import AuthorSection from "./components/Author/AuthorSection";
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -20,7 +22,7 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const toggleMusic = () => {   
+  const toggleMusic = () => {
     if (audioRef.current.paused) {
       audioRef.current.play();
       toast.success('Music is now playing.', {
@@ -35,6 +37,9 @@ function App() {
       });
     }
   };
+
+  const favorites = ['Chocolate', 'Reading', 'Traveling']; // Example favorites
+  const personalities = ['Friendly', 'Creative', 'Adventurous']; // Example personalities
 
   return (
     <AnimatePresence mode='wait'>
@@ -61,7 +66,9 @@ function App() {
             <Hero />
             <Gallery />
             <Timeline />
+            <FavoritesAndPersonalities favorites={favorites} personalities={personalities} />
             <Messages />
+            <AuthorSection />
           </div>
           
           {/* Floating Music Player */}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import './TimelineStyles.css';
+import FallbackImage from '../../assets/images/fallback-image.png';
 
 const Timeline = () => {
   // Add your special moments here
@@ -10,18 +11,21 @@ const Timeline = () => {
       date: 'The Day We Met',
       title: 'Our First Hello',
       description: 'The moment that changed everything...',
+      image: FallbackImage, // Use fallback image
     },
     {
       id: 2,
       date: 'First Date',
       title: 'Beginning of Us',
       description: 'A magical evening that I\'ll, never forget...',
+      image: FallbackImage, // Use fallback image
     },
     {
       id: 3,
       date: 'First Vacation',
       title: 'Memorable Trip',
       description: 'Our first adventure together...',
+      image: FallbackImage, // Use fallback image
     },
     // Add more events here
   ];
@@ -56,9 +60,12 @@ const Timeline = () => {
             >
               <div className="timeline-content bg-violet-light">
                 <div className="timeline-marker" />
-                <div className="timeline-date">{event.date}</div>
-                <h3 className="timeline-event-title">{event.title}</h3>
-                <p className="timeline-description">{event.description}</p>
+                <div className="timeline-event-content">
+                  <img src={event.image} alt={event.title} className="event-image" />
+                  <h3 className="event-title">{event.title}</h3>
+                  <p className="event-date">{event.date}</p>
+                  <p className="event-description">{event.description}</p>
+                </div>
               </div>
             </motion.div>
           ))}
