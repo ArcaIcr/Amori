@@ -20,7 +20,7 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  const toggleMusic = () => {
+  const toggleMusic = () => {   
     if (audioRef.current.paused) {
       audioRef.current.play();
       toast.success('Music is now playing.', {
@@ -73,7 +73,7 @@ function App() {
               🎵
             </button>
             <audio ref={audioRef} loop>
-              <source src="public/BrunoMars.mp3" type="audio/mpeg" />
+              <source src="/BrunoMars.mp3" type="audio/mpeg" />
             </audio>
           </div>
           <ToastContainer />
