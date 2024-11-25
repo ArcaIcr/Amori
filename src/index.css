@@ -12,16 +12,19 @@
   font-family: 'Inter', system-ui, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  --primary-color: var(--color-violet);
-  --secondary-color: var(--color-lilac);
-  --accent-color: var(--color-fuchsia);
+  --primary-color: #D4A5A5; /* Soft pink */
+  --secondary-color: #F2D7D5; /* Light pink */
+  --accent-color: #F28D8D; /* Coral */
+  --background-color: #FFF5F5; /* Very light pink */
+  --text-color: #5D5D5D; /* Dark gray for text */
 }
 
 html, body {
   height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--secondary-color-light);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }
 
 body {
@@ -49,8 +52,8 @@ body {
 /* Responsive Layouts */
 .container {
   max-width: 1200px;
-  margin: 0 auto;
   padding: 0 1rem;
+  margin: 0 auto;
 }
 
 /* Media Queries for Responsive Design */
