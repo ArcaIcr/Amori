@@ -18,14 +18,14 @@
   .hero-title {
     font-family: var(--font-serif);
     font-size: 4rem;
-    color: var(--color-violet);
+    color: var(--color-violet-dark);
     margin-bottom: 1rem;
     font-weight: bold;
   }
   
   .hero-subtitle {
     font-size: 1.5rem;
-    color: var(--color-lilac-dark);
+    color: var(--color-lilac-darker);
     margin-bottom: 2rem;
     opacity: 0.9;
   }
@@ -61,6 +61,7 @@
     right: 0;
     bottom: 0;
     pointer-events: none;
+    will-change: transform, opacity;
   }
   
   .floating-hearts::before,

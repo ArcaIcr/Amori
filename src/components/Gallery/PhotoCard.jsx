@@ -19,9 +19,10 @@ const PhotoCard = ({ photo, onClick }) => {
         <div className="photo-content">
           <img 
             src={photo.src} 
-            alt={photo.caption} 
+            alt={photo.caption || 'Photo'} 
             className="photo-image"
-            loading="lazy"  // Lazy loading attribute
+            loading="lazy"  
+            onError={(e) => e.target.src = 'fallback-image.png'} 
           />
           <div className="photo-overlay">
             <h3 className="photo-caption">{photo.caption}</h3>

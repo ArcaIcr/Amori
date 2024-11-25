@@ -3,6 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PhotoCard from './PhotoCard';
 import './GalleryStyles.css';
 import BabyAmori from '../../assets/images/BabyAmori.png';
+import CutieAmori1 from '../../assets/images/CutieAmori1.png';
+import Amori from '../../assets/images/Amori.png';
+import fallbackImage from '../../assets/images/fallback-image.png';
 
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -13,6 +16,18 @@ const Gallery = () => {
       id: 1,
       src: BabyAmori,
       caption: 'Cutest Pic Ever',
+      date: 'Remember when you send me this'
+    },
+    {
+      id: 2,
+      src: CutieAmori1,
+      caption: 'One of my favorite pictures',
+      date: 'Remember when you send me this'
+    },
+    {
+      id: 3,
+      src: Amori,
+      caption: 'Definitely my favorite',
       date: 'Remember when you send me this'
     },
     // Add more photos here
@@ -38,7 +53,7 @@ const Gallery = () => {
         viewport={{ once: true }}
       >
         <motion.h2 
-          className="gallery-title"
+          className="gallery-title text-violet-DEFAULT"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -47,7 +62,7 @@ const Gallery = () => {
           You that I find Most Pretty
         </motion.h2>
 
-        <div className="gallery-grid">
+        <div className="gallery-grid bg-lilac-light">
           {photos.map((photo) => (
             <PhotoCard
               key={photo.id}
@@ -72,7 +87,7 @@ const Gallery = () => {
                 animate={{ scale: 1 }}
                 exit={{ scale: 0.8 }}
               >
-                <img src={selectedImage.src} alt={selectedImage.caption} />
+                <img src={selectedImage.src} alt={selectedImage.caption} onError={(e) => e.target.src = fallbackImage} />
                 <div className="modal-caption">
                   <h3>{selectedImage.caption}</h3>
                   <p>{selectedImage.date}</p>

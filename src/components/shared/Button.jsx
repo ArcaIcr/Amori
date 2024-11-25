@@ -7,7 +7,7 @@ const Button = ({ children, onClick, variant = 'primary', className = '' }) => {
   const variants = {
     primary: 'bg-pink-500 hover:bg-pink-600 text-white shadow-lg hover:shadow-xl',
     secondary: 'bg-purple-100 hover:bg-purple-200 text-purple-700',
-    outline: 'border-2 border-pink-500 text-pink-500 hover:bg-pink-50'
+    outline: 'border-2 border-pink-500 text-pink-700 hover:bg-pink-50'
   };
 
   return (

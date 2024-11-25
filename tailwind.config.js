@@ -7,6 +7,16 @@ export default {
   theme: {
     extend: {
       colors: {
+        lilac: {
+          light: '#E0BBE4',
+          DEFAULT: '#C8A2C8',
+          dark: '#7E5A9B',
+        },
+        violet: {
+          light: '#D8BFD8',
+          DEFAULT: '#8A2BE2',
+          dark: '#4B0082',
+        },
         fuchsia: {
           light: '#FF77FF',
           DEFAULT: '#FF00FF',
@@ -41,6 +51,7 @@ export default {
         fontFamily: {
           sans: ['Inter', 'system-ui', 'sans-serif'],
           serif: ['Playfair Display', 'Georgia', 'serif'],
+          cursive: ['"Creattion Demo by GlyphStyle"', 'cursive'],
         },
         animation: {
           'heart-beat': 'heartBeat 1.3s ease-in-out infinite',

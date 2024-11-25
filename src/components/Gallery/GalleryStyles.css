@@ -68,6 +68,7 @@
   
   .photo-card:hover .photo-image {
     transform: scale(1.1);
+    will-change: transform;
   }
   
   .photo-caption {

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const Card = ({ children, className = '', onClick, hover = true }) => {
-  const baseStyles = 'bg-white rounded-xl shadow-md overflow-hidden';
+  const baseStyles = 'bg-white rounded-xl shadow-md overflow-hidden text-gray-800';
   
   return (
     <motion.div

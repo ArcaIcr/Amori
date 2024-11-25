@@ -17,6 +17,12 @@ const Timeline = () => {
       title: 'Beginning of Us',
       description: 'A magical evening that I\'ll, never forget...',
     },
+    {
+      id: 3,
+      date: 'First Vacation',
+      title: 'Memorable Trip',
+      description: 'Our first adventure together...',
+    },
     // Add more events here
   ];
 
@@ -29,13 +35,13 @@ const Timeline = () => {
         viewport={{ once: true }}
       >
         <motion.h2 
-          className="timeline-title"
+          className="timeline-title text-fuchsia-DEFAULT"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
-          Our Journey Together
+          Timeline of Events
         </motion.h2>
 
         <div className="timeline">
@@ -48,7 +54,7 @@ const Timeline = () => {
               transition={{ duration: 0.6, delay: index * 0.2 }}
               viewport={{ once: true }}
             >
-              <div className="timeline-content">
+              <div className="timeline-content bg-violet-light">
                 <div className="timeline-marker" />
                 <div className="timeline-date">{event.date}</div>
                 <h3 className="timeline-event-title">{event.title}</h3>
@@ -75,7 +81,7 @@ const Timeline = () => {
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
           >
-            And our story continues...
+            Hopefully our story continues
           </motion.p>
         </div>
       </motion.div>

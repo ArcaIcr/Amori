@@ -13,7 +13,7 @@
     text-align: center;
     font-family: var(--font-serif);
     font-size: 2.5rem;
-    color: var(--color-primary);
+    color: var(--color-primary-dark);
     margin-bottom: 4rem;
   }
   
@@ -67,6 +67,7 @@
     border-radius: 50%;
     top: 50%;
     transform: translateY(-50%);
+    will-change: transform, opacity;
   }
   
   .timeline-event.left .timeline-marker {
@@ -79,19 +80,19 @@
   
   .timeline-date {
     font-family: var(--font-serif);
-    color: var(--color-primary);
+    color: var(--color-primary-dark);
     font-size: 1.1rem;
     margin-bottom: 0.5rem;
   }
   
   .timeline-event-title {
     font-size: 1.25rem;
-    color: var(--color-text);
+    color: var(--color-text-dark);
     margin-bottom: 0.5rem;
   }
   
   .timeline-description {
-    color: var(--color-text);
+    color: var(--color-text-dark);
     opacity: 0.8;
     line-height: 1.6;
   }
@@ -109,7 +110,7 @@
   
   .timeline-end-text {
     font-family: var(--font-serif);
-    color: var(--color-primary);
+    color: var(--color-primary-dark);
     font-size: 1.25rem;
     font-style: italic;
   }
