@@ -1,11 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import Button from '../shared/Button';
 import './HeroStyles.css';
 import SparklesIcon from '../../assets/icons/sparkles.svg';
 import HeartIcon from '../../assets/icons/heart.svg';
+import HeroTitle from './HeroTitle';
+import HeroSubtitle from './HeroSubtitle';
+import HeroMessage from './HeroMessage';
+import HeroActions from './HeroActions';
 
 const Hero = () => {
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -60,46 +64,10 @@ const Hero = () => {
             transition={{ duration: 2, repeat: Infinity, repeatType: "reverse", delay: index * 0.2 }}
           />
         ))}
-        <motion.h1 
-          className="hero-title"
-          variants={itemVariants}
-        >
-          To My Dearest
-        </motion.h1>
-
-        <motion.p 
-          className="hero-subtitle"
-          variants={itemVariants}
-        >
-          A digital expression of my love for you
-        </motion.p>
-
-        <motion.div 
-          className="hero-message"
-          variants={itemVariants}
-        >
-          <p className="love-quote">
-            "Every moment with you is a moment I treasure"
-          </p>
-        </motion.div>
-
-        <motion.div 
-          className="hero-actions"
-          variants={itemVariants}
-        >
-          <Button 
-            variant="primary"
-            onClick={() => document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' })}
-          >
-            Our Memories
-          </Button>
-          <Button 
-            variant="outline"
-            onClick={() => document.getElementById('message').scrollIntoView({ behavior: 'smooth' })}
-          >
-            Read My Letter
-          </Button>
-        </motion.div>
+        <HeroTitle title="To My Dearest" variants={itemVariants} />
+        <HeroSubtitle subtitle="A digital expression of my love for you" variants={itemVariants} />
+        <HeroMessage message="Every moment with you is a moment I treasure" variants={itemVariants} />
+        <HeroActions variants={itemVariants} />
       </div>
     </motion.section>
   );

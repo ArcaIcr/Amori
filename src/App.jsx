@@ -1,13 +1,15 @@
-import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Hero from './components/Hero/Hero'
-import Gallery from './components/Gallery/Gallery'
-import Messages from './components/Messages/Messages'
-import Timeline from './components/Timeline/Timeline'
-import './App.css'
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Hero from './components/Hero/Hero';
+import Gallery from './components/Gallery/Gallery';
+import Messages from './components/Messages/Messages';
+import Timeline from './components/Timeline/Timeline';
+import './App.css';
+import { ToastContainer } from 'react-toastify';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     // Simulate loading time
@@ -17,6 +19,14 @@ function App() {
 
     return () => clearTimeout(timer);
   }, []);
+
+  const toggleMusic = () => {
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+    } else {
+      audioRef.current.pause();
+    }
+  };
 
   return (
     <AnimatePresence mode='wait'>
@@ -49,26 +59,20 @@ function App() {
           {/* Floating Music Player */}
           <div className="music-player">
             <button 
-              onClick={() => {
-                const audio = document.getElementById('background-music');
-                if (audio.paused) {
-                  audio.play();
-                } else {
-                  audio.pause();
-                }
-              }}
+              onClick={toggleMusic}
               aria-label="Toggle Music"
             >
               🎵
             </button>
-            <audio id="background-music" loop>
-              <source src="/path-to-your-music.mp3" type="audio/mpeg" />
+            <audio ref={audioRef} loop>
+              <source src="public/BrunoMars.mp3" type="audio/mpeg" />
             </audio>
           </div>
+          <ToastContainer />
         </motion.main>
       )}
     </AnimatePresence>
-  )
+  );
 }
 
-export default App
+export default App;

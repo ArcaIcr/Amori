@@ -99,6 +99,10 @@
   
     .hero-actions {
       flex-direction: column;
-      align-items: stretch;
+      align-items: center;
+    }
+  
+    .hero-content {
+      padding: 1rem;
     }
   }
