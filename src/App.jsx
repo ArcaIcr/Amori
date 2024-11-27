@@ -38,8 +38,8 @@ function App() {
     }
   };
 
-  const favorites = ['Chocolate', 'Reading', 'Traveling']; // Example favorites
-  const personalities = ['Friendly', 'Creative', 'Adventurous']; // Example personalities
+  const favorites = ['Head Pats & Back Scratches', 'Cold Baths & Cold Weather', 'Sinigang', 'Bruno Mars']; // Example favorites
+  const personalities = ['Spontaneous if not Lazy', 'Strong Willed', 'Weird[Im into it <3]', 'Super Understanding']; // Example personalities
 
   return (
     <AnimatePresence mode='wait'>
@@ -52,7 +52,7 @@ function App() {
           exit={{ opacity: 0 }}
         >
           <div className="heart-loader">❤️</div>
-          <p>Loading our love story...</p>
+          <p>Loading my love letter...</p>
         </motion.div>
       ) : (
         <motion.main

@@ -48,23 +48,18 @@ const Messages = () => {
           <Card className="letter-card">
             <div className="letter-content">
               <p className="dear font-cursive">Dearest Amori,</p>
-              
-              {/* Customize these paragraphs with your message */}
               <p className="letter-paragraph font-cursive">
                 Words can't fully express how much you mean to me, but I'll try my best to put my feelings into words.
               </p>
-
               <p className="letter-paragraph">
                 Every moment with you feels like a gift. Your smile brightens my darkest days, and your love makes my heart feel complete.
               </p>
-
               <p className="letter-paragraph font-cursive">
                 Thank you for being you, for sharing your life with me, and for making every day more beautiful just by being in it.
               </p>
-
               <div className="letter-closing">
                 <p>With all my love,</p>
-                <p className="signature">Ken</p>
+                <p className="dear font-cursive">Ken</p>
               </div>
             </div>
           </Card>

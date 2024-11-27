@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 .main-container {
   min-height: 100vh;
   width: 100%;
@@ -109,6 +111,10 @@ h1, h2, h3, h4, h5, h6 {
 
 p, li, span {
   font-family: var(--font-sans);
+}
+
+.messages-title, .letter-content {
+  font-family: 'Great Vibes', cursive;
 }
 
 /* Background Enhancements */
