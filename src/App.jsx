@@ -71,9 +71,9 @@ function App() {
                 <div className="content-wrapper">
                   <Hero toggleMusic={toggleMusic} />
                   <Gallery />
-                  <Messages />
                   <Timeline />
                   <FavoritesAndPersonalities favorites={favorites} personalities={personalities} />
+                  <Messages />
                   <AuthorSection />
                 </div>
                 

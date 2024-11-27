@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import Card from '../shared/Card';
+import { Link } from 'react-router-dom';
 import './MessagesStyles.css';
 
 const Messages = () => {
@@ -76,9 +77,9 @@ const Messages = () => {
         </motion.div>
 
         <div className="emoji-button text-center mt-4">
-          <a href="/special-letter" className="text-2xl hover:text-pink-500 transition-colors duration-300">
+          <Link to="/special-letter" className="text-2xl hover:text-pink-500 transition-colors duration-300">
             💌
-          </a>
+          </Link>
         </div>
       </motion.div>
     </section>
