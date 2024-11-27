@@ -74,6 +74,12 @@ const Messages = () => {
             <p className="quote-text">"In your eyes, I found my home. In your heart, I found my love."</p>
           </div>
         </motion.div>
+
+        <div className="emoji-button text-center mt-4">
+          <a href="/special-letter" className="text-2xl hover:text-pink-500 transition-colors duration-300">
+            💌
+          </a>
+        </div>
       </motion.div>
     </section>
   );
