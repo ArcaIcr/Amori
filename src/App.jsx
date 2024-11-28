@@ -7,6 +7,7 @@ import Timeline from './components/Timeline/Timeline';
 import FavoritesAndPersonalities from "./components/Favorites/FavoritesAndPersonalities";
 import AuthorSection from "./components/Author/AuthorSection";
 import SpecialLetter from './components/SpecialLetter/SpecialLetter';
+import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -47,6 +48,7 @@ function App() {
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
       <Routes>
         <Route path="/special-letter" element={<SpecialLetter />} />
+        <Route path="/loading" element={<LoadingScreen />} />
         <Route path="/" element={
           <AnimatePresence mode='wait'>
             {isLoading ? (

@@ -77,7 +77,7 @@ const Messages = () => {
         </motion.div>
 
         <div className="emoji-button text-center mt-4">
-          <Link to="/special-letter" className="text-2xl hover:text-pink-500 transition-colors duration-300">
+          <Link to="/loading" className="text-2xl hover:text-pink-500 transition-colors duration-300">
             💌
           </Link>
         </div>
