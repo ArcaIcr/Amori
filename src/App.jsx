@@ -11,6 +11,12 @@ import LoadingScreen from './components/LoadingScreen/LoadingScreen';
 import './App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Particles from './components/shared/Particles';
+import './styles/styles/particles.css';
+import DailyQuote from './components/DailyQuote/DailyQuote';
+import AnniversaryCountdown from './components/AnniversaryCountdown/AnniversaryCountdown';
+import InteractiveStorybook from './components/InteractiveStorybook/InteractiveStorybook';
+import LoveNotesJar from './components/LoveNotesJar/LoveNotesJar';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -63,36 +69,42 @@ function App() {
                 <p>Loading my love letter...</p>
               </motion.div>
             ) : (
-              <motion.main
-                key="content"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                className="main-container"
-              >
-                <div className="content-wrapper">
-                  <Hero toggleMusic={toggleMusic} />
-                  <Gallery />
-                  <Timeline />
-                  <FavoritesAndPersonalities favorites={favorites} personalities={personalities} />
-                  <Messages />
-                  <AuthorSection />
-                </div>
-                
-                {/* Floating Music Player */}
-                <div className="music-player">
-                  <button 
-                    onClick={toggleMusic}
-                    aria-label="Toggle Music"
-                  >
-                    🎵
-                  </button>
-                  <audio ref={audioRef} loop>
-                    <source src="/BrunoMars.mp3" type="audio/mpeg" />
-                  </audio>
-                </div>
-                <ToastContainer />
-              </motion.main>
+              <div className="main-container">
+                <Particles />
+                <motion.main
+                  key="content"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <div className="content-wrapper">
+                    <Hero toggleMusic={toggleMusic} />
+                    <DailyQuote />
+                    <Gallery />
+                    <Timeline />
+                    <AnniversaryCountdown />
+                    <InteractiveStorybook />
+                    <LoveNotesJar />
+                    <FavoritesAndPersonalities favorites={favorites} personalities={personalities} />
+                    <Messages />
+                    <AuthorSection />
+                  </div>
+                  
+                  {/* Floating Music Player */}
+                  <div className="music-player">
+                    <button 
+                      onClick={toggleMusic}
+                      aria-label="Toggle Music"
+                    >
+                      🎵
+                    </button>
+                    <audio ref={audioRef} loop>
+                      <source src="/BrunoMars.mp3" type="audio/mpeg" />
+                    </audio>
+                  </div>
+                  <ToastContainer />
+                </motion.main>
+              </div>
             )}
           </AnimatePresence>
         } />

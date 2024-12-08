@@ -1,0 +1,170 @@
+.love-notes-jar {
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 20, 147, 0.1));
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: 2rem auto;
+  box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+  text-align: center;
+}
+
+.jar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Content Type Selector */
+.content-type-selector {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.content-type-button {
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.content-type-button.active {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+}
+
+.love-jar {
+  position: relative;
+  width: 200px;
+  height: 300px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 3px solid #ff1493;
+  border-radius: 0 0 50px 50px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.jar-lid {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  height: 40px;
+  background-color: #ff1493;
+  border-radius: 10px;
+}
+
+.notes-count {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 20, 147, 0.2);
+  padding: 0.5rem;
+  border-radius: 15px;
+}
+
+.jar-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+}
+
+.jar-actions button,
+.add-note-form button,
+.password-form button,
+.secret-password-form button {
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.jar-actions button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.daily-limit {
+  background-color: rgba(255, 20, 147, 0.1);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  color: #ff1493;
+}
+
+.add-note-form,
+.password-form,
+.secret-password-form {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem auto;
+}
+
+.add-note-form input,
+.password-form input,
+.secret-password-form input {
+  flex-grow: 1;
+  padding: 0.75rem;
+  border: 2px solid #ff1493;
+  border-radius: 25px;
+}
+
+.current-note {
+  background-color: rgba(255, 20, 147, 0.1);
+  border: 2px solid #ff1493;
+  border-radius: 20px;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  position: relative;
+}
+
+.current-note p {
+  font-size: 1.2rem;
+  font-style: italic;
+  color: #333;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+}
+
+.current-note button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  color: #ff1493;
+  border: 2px solid #ff1493;
+}
+
+@media (max-width: 768px) {
+  .jar-actions,
+  .add-note-form,
+  .password-form,
+  .secret-password-form,
+  .content-type-selector {
+    flex-direction: column;
+  }
+
+  .add-note-form,
+  .password-form,
+  .secret-password-form {
+    max-width: 100%;
+  }
+
+  .content-type-button {
+    width: 100%;
+    max-width: 250px;
+  }
+}

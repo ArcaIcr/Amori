@@ -1,0 +1,137 @@
+.daily-quote-section {
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, rgba(255, 182, 193, 0.2), rgba(255, 192, 203, 0.3));
+  min-height: 40vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.daily-quote-container {
+  max-width: 800px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.daily-quote-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(to right, #ff69b4, #ff1493);
+}
+
+.quote-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.quote-header h2 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: #ff1493;
+  margin: 0;
+}
+
+.quote-date {
+  display: block;
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 0.5rem;
+}
+
+.quote-content {
+  position: relative;
+  padding: 2rem;
+  text-align: center;
+}
+
+.quote-marks {
+  font-size: 4rem;
+  color: #ff69b4;
+  opacity: 0.3;
+  position: absolute;
+  top: -1rem;
+  left: 1rem;
+  font-family: serif;
+}
+
+.quote-marks.closing {
+  top: auto;
+  bottom: -2rem;
+  right: 1rem;
+  left: auto;
+}
+
+.quote-text {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  line-height: 1.6;
+  color: #333;
+  margin: 1rem 0;
+  position: relative;
+  z-index: 1;
+}
+
+.quote-author {
+  font-style: italic;
+  color: #666;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+}
+
+.quote-footer {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.heart-icon {
+  font-size: 2rem;
+  display: inline-block;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .daily-quote-section {
+    padding: 2rem 1rem;
+  }
+
+  .quote-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .quote-text {
+    font-size: 1.2rem;
+  }
+
+  .quote-marks {
+    font-size: 3rem;
+  }
+}
+
+/* Hover Effects */
+.daily-quote-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(255, 105, 180, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Animation for quote appearance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

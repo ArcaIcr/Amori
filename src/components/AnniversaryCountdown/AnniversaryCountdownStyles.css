@@ -1,0 +1,107 @@
+.anniversary-countdown {
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.1), rgba(255, 20, 147, 0.1));
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 700px;
+  margin: 2rem auto;
+  box-shadow: 0 10px 25px rgba(255, 105, 180, 0.2);
+  text-align: center;
+}
+
+.countdown-title {
+  color: #ff1493;
+  margin-bottom: 1.5rem;
+  font-size: 2.5rem;
+  font-family: 'Satisfy', cursive;
+}
+
+.countdown-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 600px;
+}
+
+.countdown-item {
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 20, 147, 0.2));
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(255, 20, 147, 0.1);
+}
+
+.countdown-value {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ff1493;
+}
+
+.countdown-unit {
+  color: #666;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.countdown-message {
+  margin-top: 1rem;
+  font-style: italic;
+  color: #333;
+}
+
+/* Official Moment Styles */
+.official-moment-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.official-moment-button {
+  background: linear-gradient(135deg, #ff69b4, #ff1493);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(255, 20, 147, 0.3);
+}
+
+.official-moment-prompt p {
+  color: #666;
+  max-width: 300px;
+  text-align: center;
+}
+
+.reset-button {
+  background: none;
+  border: 2px solid #ff1493;
+  color: #ff1493;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  margin-top: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .countdown-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .countdown-value {
+    font-size: 2rem;
+  }
+
+  .countdown-unit {
+    font-size: 0.7rem;
+  }
+}

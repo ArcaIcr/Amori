@@ -20,6 +20,7 @@
   .timeline {
     position: relative;
     padding: 2rem 0;
+    transition: height 0.5s ease;
   }
   
   /* Timeline central line */
@@ -38,6 +39,7 @@
     margin-bottom: 4rem;
     position: relative;
     width: 50%;
+    transition: all 0.5s ease;
   }
   
   .timeline-event.left {
@@ -145,6 +147,69 @@
     color: var(--color-primary-dark);
     font-size: 1.25rem;
     font-style: italic;
+  }
+  
+  /* Timeline Toggle Button */
+  .timeline-toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 2rem auto;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.3);
+  }
+  
+  .timeline-toggle-button:hover {
+    box-shadow: 0 6px 20px rgba(255, 105, 180, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  .toggle-icon {
+    display: inline-block;
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Year Selector Styles */
+  .year-selector {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .year-button {
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-color: #f0f0f0;
+    color: #666;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+  }
+  
+  .year-button.active {
+    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    color: white;
+    border-color: #ff1493;
+    box-shadow: 0 4px 10px rgba(255, 105, 180, 0.3);
+  }
+  
+  .year-button:hover:not(.active) {
+    background-color: #e0e0e0;
+    color: #333;
   }
   
   /* Responsive Design */
