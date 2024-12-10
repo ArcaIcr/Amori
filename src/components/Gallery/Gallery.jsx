@@ -5,6 +5,7 @@ import './GalleryStyles.css';
 import BabyAmori from '../../assets/images/BabyAmori.png';
 import CutieAmori1 from '../../assets/images/CutieAmori1.png';
 import Amori from '../../assets/images/Amori.png';
+import Fav from '../../assets/images/Fav.png';
 import fallbackImage from '../../assets/images/fallback-image.png';
 
 const Gallery = () => {

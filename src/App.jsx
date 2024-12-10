@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Hero from './components/Hero/Hero';
 import Gallery from './components/Gallery/Gallery';
 import Messages from './components/Messages/Messages';
-import Timeline from './components/Timeline/Timeline';
+/* import Timeline from './components/Timeline/Timeline'; */
 import FavoritesAndPersonalities from "./components/Favorites/FavoritesAndPersonalities";
 import AuthorSection from "./components/Author/AuthorSection";
 import SpecialLetter from './components/SpecialLetter/SpecialLetter';
@@ -81,7 +81,7 @@ function App() {
                     <Hero toggleMusic={toggleMusic} />
                     <DailyQuote />
                     <Gallery />
-                    <Timeline />
+                   {/* <Timeline /> */ }
                     <AnniversaryCountdown />
                     <InteractiveStorybook />
                     <LoveNotesJar />
