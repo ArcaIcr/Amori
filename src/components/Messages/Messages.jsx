@@ -50,13 +50,46 @@ const Messages = () => {
             <div className="letter-content">
               <p className="dear font-cursive">Dearest Amori,</p>
               <p className="letter-paragraph font-cursive">
-                Words can't fully express how much you mean to me, but I'll try my best to put my feelings into words.
+              I find myself struggling to put into words the depth of gratitude I feel for your presence in my life,
               </p>
               <p className="letter-paragraph">
-                Every moment with you feels like a gift. Your smile brightens my darkest days, and your love makes my heart feel complete.
+              but I’ll do my best to try. You have this remarkable way of filling my days with a kind of light and
               </p>
               <p className="letter-paragraph font-cursive">
-                Thank you for being you, for sharing your life with me, and for making every day more beautiful just by being in it.
+              warmth I never thought I’d experience again.
+              </p>
+              <p className="letter-paragraph font-cursive">
+              Thank you—for simply existing. You’ve brought back a sense of wonder, joy, and purpose into my
+              </p>
+              <p className="letter-paragraph font-cursive">
+              world. Every moment shared with you feels like a gentle reminder of how beautiful life can be, and
+              </p>
+              <p className="letter-paragraph font-cursive">
+              your love inspires me to embrace it wholeheartedly.
+              </p>
+              <p className="letter-paragraph font-cursive">
+              There are days when the weight of the world feels overwhelming, yet your kindness and strength
+              </p>
+              <p className="letter-paragraph font-cursive">
+              have this uncanny ability to lift that burden. You’ve reignited a spark in me—a desire to live, to
+              </p>
+              <p className="letter-paragraph font-cursive">
+              cherish even the simplest of moments, and to discover the happiness I thought was lost.
+              </p>
+              <p className="letter-paragraph">
+              Your love is like a beacon, guiding me back to myself, to life, and to hope. I am endlessly grateful for
+              </p>
+              <p className="letter-paragraph">
+              the gift of you, for the joy you bring, and for the extraordinary person you are. You’ve reminded me
+              </p>
+              <p className="letter-paragraph">
+              that life isn’t just about surviving—it’s about loving, laughing, and truly living.
+              </p>
+              <p className="letter-paragraph">
+              Thank you for being you. Thank you for loving me. You’ve given me more than I could ever ask for,
+              </p>
+              <p className="letter-paragraph font-cursive">
+              and I cherish you beyond measure.
               </p>
               <div className="letter-closing">
                 <p>With all my love,</p>

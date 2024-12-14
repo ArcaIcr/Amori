@@ -40,7 +40,7 @@ const initialNotes = {
 
 const LoveNotesJar = () => {
   // Preset password that she needs to guess
-  const PRESET_PASSWORD = "firstkiss";
+  const PRESET_PASSWORD = "kenny";
 
   const [contentType, setContentType] = useState('love_notes');
   const [notes, setNotes] = useState(initialNotes[contentType]);
