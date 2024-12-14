@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import './LoveNotesJarStyles.css';
 
 const initialNotes = {
@@ -39,69 +39,39 @@ const initialNotes = {
 };
 
 const LoveNotesJar = () => {
-  // Preset password that she needs to guess
-  const PRESET_PASSWORD = "kenny";
-
   const [contentType, setContentType] = useState('love_notes');
-  const [notes, setNotes] = useState(initialNotes[contentType]);
-  const [currentNote, setCurrentNote] = useState(null);
+  const [notes, setNotes] = useState(() => {
+    const savedData = JSON.parse(localStorage.getItem('loveNotesJarContent')) || initialNotes;
+    return savedData.love_notes;
+  });
   const [newNote, setNewNote] = useState('');
-  const [dailyLimit, setDailyLimit] = useState(10);
-  const [isPasswordMode, setIsPasswordMode] = useState(false);
-  const [isResetPasswordMode, setIsResetPasswordMode] = useState(false);
-  const [passwordInput, setPasswordInput] = useState('');
-  const [passwordAttempts, setPasswordAttempts] = useState(0);
-  const [lastResetDate, setLastResetDate] = useState(null);
+  const [pulledNotes, setPulledNotes] = useState(() => {
+    return JSON.parse(localStorage.getItem('pulledNotes')) || [];
+  });
 
-  // Load state from localStorage on component mount
   useEffect(() => {
-    const savedState = localStorage.getItem('loveNotesJarState');
-    if (savedState) {
-      const parsedState = JSON.parse(savedState);
-      const today = new Date().toDateString();
-      
-      // Check if it's a new day since last reset
-      if (!parsedState.lastResetDate || parsedState.lastResetDate !== today) {
-        // Automatically reset if it's a new day
-        setDailyLimit(10);
-        setLastResetDate(today);
-        localStorage.setItem('loveNotesJarState', JSON.stringify({
-          ...parsedState,
-          dailyLimit: 10,
-          lastResetDate: today
-        }));
-      } else {
-        // Maintain existing state
-        setDailyLimit(parsedState.dailyLimit);
-        setLastResetDate(parsedState.lastResetDate);
-      }
-    }
-  }, []);
+    // Save content type-specific notes to localStorage
+    const savedData = JSON.parse(localStorage.getItem('loveNotesJarContent')) || initialNotes;
+    savedData[contentType] = notes;
+    localStorage.setItem('loveNotesJarContent', JSON.stringify(savedData));
+  }, [notes, contentType]);
 
-  // Save state to localStorage whenever it changes
   useEffect(() => {
-    const today = new Date().toDateString();
-    const savedState = localStorage.getItem('loveNotesJarState');
-    const parsedState = savedState ? JSON.parse(savedState) : {};
-
-    localStorage.setItem('loveNotesJarState', JSON.stringify({
-      ...parsedState,
-      dailyLimit,
-      lastResetDate: lastResetDate || today
-    }));
-  }, [dailyLimit, lastResetDate]);
+    // Save pulled notes to localStorage
+    localStorage.setItem('pulledNotes', JSON.stringify(pulledNotes));
+  }, [pulledNotes]);
 
   const pullRandomNote = () => {
-    if (notes.length > 0 && dailyLimit > 0) {
-      const randomIndex = Math.floor(Math.random() * notes.length);
-      const selectedNote = notes[randomIndex];
-      setCurrentNote(selectedNote);
-      
-      // Remove the selected note from the array
+    if (notes.length > 0) {
+      let randomIndex;
+      let selectedNote;
+      do {
+        randomIndex = Math.floor(Math.random() * notes.length);
+        selectedNote = notes[randomIndex];
+      } while (pulledNotes.includes(selectedNote));
+
+      setPulledNotes([...pulledNotes, selectedNote]);
       setNotes(notes.filter((_, index) => index !== randomIndex));
-      setDailyLimit(prev => prev - 1);
-    } else if (dailyLimit <= 0 && !isPasswordMode) {
-      setIsPasswordMode(true);
     }
   };
 
@@ -113,209 +83,51 @@ const LoveNotesJar = () => {
     }
   };
 
-  const resetJar = () => {
-    const today = new Date().toDateString();
-    
-    // If it's the same day, prompt for password reset
-    if (lastResetDate === today) {
-      setIsResetPasswordMode(true);
-    } else {
-      // Automatically reset if it's a new day
-      setNotes(initialNotes[contentType]);
-      setCurrentNote(null);
-      setDailyLimit(10);
-      setIsPasswordMode(false);
-      setPasswordAttempts(0);
-      setLastResetDate(today);
-    }
-  };
-
-  const handleResetPasswordSubmit = (e) => {
-    e.preventDefault();
-    if (passwordInput.toLowerCase().trim() === PRESET_PASSWORD) {
-      const today = new Date().toDateString();
-      setNotes(initialNotes[contentType]);
-      setCurrentNote(null);
-      setDailyLimit(10);
-      setIsPasswordMode(false);
-      setIsResetPasswordMode(false);
-      setPasswordAttempts(0);
-      setLastResetDate(today);
-      setPasswordInput('');
-    } else {
-      setPasswordAttempts(prev => prev + 1);
-      
-      // Add increasing difficulty/hints
-      switch(passwordAttempts) {
-        case 0:
-          alert('Incorrect password. Try again! Hint: It was a magical moment.');
-          break;
-        case 1:
-          alert('Still incorrect. Think about our first special moment.');
-          break;
-        case 2:
-          alert('Getting warmer... Remember our first intimate moment.');
-          break;
-        default:
-          alert('Password is related to our first kiss. Think carefully!');
-      }
-    }
-  };
-
-  const handlePasswordSubmit = (e) => {
-    e.preventDefault();
-    if (passwordInput.toLowerCase().trim() === PRESET_PASSWORD) {
-      setIsPasswordMode(false);
-      setDailyLimit(10);
-      setPasswordAttempts(0);
-    } else {
-      setPasswordAttempts(prev => prev + 1);
-      
-      // Add increasing difficulty/hints
-      switch(passwordAttempts) {
-        case 0:
-          alert('Incorrect password. Try again! Hint: It was a magical moment.');
-          break;
-        case 1:
-          alert('Still incorrect. Think about our first special moment.');
-          break;
-        case 2:
-          alert('Getting warmer... Remember our first intimate moment.');
-          break;
-        default:
-          alert('Password is related to our first kiss. Think carefully!');
-      }
-    }
-    setPasswordInput('');
+  const resetContentType = () => {
+    setNotes(initialNotes[contentType]);
+    setPulledNotes([]);
   };
 
   return (
     <div className="love-notes-jar">
-      <div className="jar-container">
-        <div className="content-type-selector">
-          {Object.keys(initialNotes).map((type) => (
-            <motion.button
-              key={type}
-              className={`content-type-button ${contentType === type ? 'active' : ''}`}
-              onClick={() => {
-                setContentType(type);
-                setNotes(initialNotes[type]);
-                setCurrentNote(null);
-                setDailyLimit(10);
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              {type.replace('_', ' ').toUpperCase()}
-            </motion.button>
-          ))}
-        </div>
-
-        <motion.div 
-          className="love-jar"
-          whileHover={{ scale: 1.05 }}
-          transition={{ type: "spring", stiffness: 300 }}
-        >
-          <div className="jar-lid"></div>
-          <div className="jar-body">
-            <div className="notes-count">{notes.length} {contentType.replace('_', ' ')}</div>
-          </div>
-        </motion.div>
-
-        {isResetPasswordMode ? (
-          <form onSubmit={handleResetPasswordSubmit} className="password-form">
-            <input 
-              type="password" 
-              value={passwordInput}
-              onChange={(e) => setPasswordInput(e.target.value)}
-              placeholder="Enter password to reset today"
-            />
-            <motion.button 
-              type="submit"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              Reset
-            </motion.button>
-          </form>
-        ) : isPasswordMode ? (
-          <form onSubmit={handlePasswordSubmit} className="password-form">
-            <input 
-              type="password" 
-              value={passwordInput}
-              onChange={(e) => setPasswordInput(e.target.value)}
-              placeholder="Enter secret password"
-            />
-            <motion.button 
-              type="submit"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-            >
-              Unlock
-            </motion.button>
-          </form>
-        ) : (
-          <>
-            <div className="jar-actions">
-              <motion.button 
-                onClick={pullRandomNote}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                disabled={notes.length === 0 || dailyLimit === 0}
-              >
-                Pull a {contentType.replace('_', ' ').slice(0, -1)}
-              </motion.button>
-              <motion.button 
-                onClick={resetJar}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                Reset Jar
-              </motion.button>
-              <div className="daily-limit">
-                Daily Pulls Left: {dailyLimit}
-              </div>
-            </div>
-
-            <form onSubmit={addNewNote} className="add-note-form">
-              <input 
-                type="text" 
-                value={newNote}
-                onChange={(e) => setNewNote(e.target.value)}
-                placeholder={`Write a new ${contentType.replace('_', ' ').slice(0, -1)}...`}
-                maxLength={200}
-              />
-              <motion.button 
-                type="submit"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                Add {contentType.replace('_', ' ').slice(0, -1)}
-              </motion.button>
-            </form>
-          </>
-        )}
-
-        <AnimatePresence>
-          {currentNote && (
-            <motion.div 
-              className="current-note"
-              initial={{ opacity: 0, y: 50 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -50 }}
-            >
-              <p>"{currentNote}"</p>
-              <motion.button 
-                onClick={() => setCurrentNote(null)}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                Close
-              </motion.button>
-            </motion.div>
-          )}
-        </AnimatePresence>
+      <div className="content-type-selector">
+        {Object.keys(initialNotes).map((type) => (
+          <motion.button
+            key={type}
+            className={`content-type-button ${contentType === type ? 'active' : ''}`}
+            onClick={() => {
+              setContentType(type);
+              const savedData = JSON.parse(localStorage.getItem('loveNotesJarContent')) || initialNotes;
+              setNotes(savedData[type]);
+            }}
+          >
+            {type.replace('_', ' ').toUpperCase()}
+          </motion.button>
+        ))}
       </div>
+
+      <motion.div className="jar" whileHover={{ scale: 1.05 }}>
+        <div className="jar-body">
+          <div className="notes-count">
+            {notes.length} {contentType.replace('_', ' ')}
+          </div>
+        </div>
+      </motion.div>
+
+      <div className="jar-actions">
+        <motion.button onClick={pullRandomNote}>Pull a Note</motion.button>
+        <motion.button onClick={resetContentType}>Reset {contentType.replace('_', ' ')}</motion.button>
+      </div>
+
+      <form onSubmit={addNewNote} className="add-note-form">
+        <input
+          type="text"
+          value={newNote}
+          onChange={(e) => setNewNote(e.target.value)}
+          placeholder={`Write a new ${contentType.slice(0, -1)}`}
+        />
+        <motion.button type="submit">Add</motion.button>
+      </form>
     </div>
   );
 };
