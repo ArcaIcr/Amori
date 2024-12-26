@@ -1,19 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Card from '../shared/Card';
 import { toast } from 'react-toastify';
 import { FaHeart, FaTrash, FaDownload, FaLock, FaUnlock } from 'react-icons/fa';
+import { db } from '../../firebaseConfig'; // Assuming firebase.js exports your Firestore instance
+import { collection, getDocs, doc, updateDoc, deleteDoc } from 'firebase/firestore';
 
 const REACTIONS = ['❤️', '😊', '🥰', '💝', '💌'];
 
-const ResponseView = ({ responses, onDelete, onUpdateResponse }) => {
+const ResponseView = () => {
+  const [responses, setResponses] = useState([]);
   const [password, setPassword] = useState('');
   const [isLocked, setIsLocked] = useState(true);
   const [exportFormat, setExportFormat] = useState('txt');
 
+  // Fetch responses from Firestore
+  useEffect(() => {
+    const fetchResponses = async () => {
+      const querySnapshot = await getDocs(collection(db, 'letterResponses'));
+      const responsesList = querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+      setResponses(responsesList);
+    };
+    fetchResponses();
+  }, []);
+
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    // You can change this password or implement a more secure authentication
     if (password === 'amori') {
       setIsLocked(false);
       toast.success('Responses unlocked! 💖', {
@@ -28,12 +40,36 @@ const ResponseView = ({ responses, onDelete, onUpdateResponse }) => {
     }
   };
 
-  const handleReaction = (responseId, reaction) => {
+  const handleReaction = async (responseId, reaction) => {
     const response = responses.find(r => r.id === responseId);
     if (response) {
       const reactions = response.reactions || {};
       reactions[reaction] = (reactions[reaction] || 0) + 1;
-      onUpdateResponse({ ...response, reactions });
+
+      const responseRef = doc(db, 'letterResponses', responseId);
+      await updateDoc(responseRef, { reactions });
+      setResponses((prevResponses) => 
+        prevResponses.map((r) => 
+          r.id === responseId ? { ...r, reactions } : r
+        )
+      );
+    }
+  };
+
+  const handleDelete = async (responseId) => {
+    try {
+      const responseRef = doc(db, 'responses', responseId);
+      await deleteDoc(responseRef);
+      setResponses((prevResponses) => prevResponses.filter((r) => r.id !== responseId));
+      toast.success('Response deleted successfully! 💖', {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      toast.error('Failed to delete response', {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
     }
   };
 
@@ -151,7 +187,7 @@ const ResponseView = ({ responses, onDelete, onUpdateResponse }) => {
                       {response.category || 'General'}
                     </span>
                     <button
-                      onClick={() => onDelete(response.id)}
+                      onClick={() => handleDelete(response.id)}
                       className="text-red-500 hover:text-red-700 transition-colors duration-300"
                       title="Delete response"
                     >

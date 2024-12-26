@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
+import { db } from '../../firebaseConfig'; // Import Firestore
+import { collection, query, orderBy, onSnapshot, addDoc, doc, deleteDoc, updateDoc, serverTimestamp } from 'firebase/firestore'; // Firestore methods
 import ResponseView from './ResponseView';
 
 const CATEGORIES = ['Love', 'Thoughts', 'Feelings', 'Future', 'General'];
@@ -12,35 +14,48 @@ const SpecialLetter = () => {
   const [selectedCategory, setSelectedCategory] = useState('General');
 
   useEffect(() => {
-    // Load responses from localStorage when component mounts
-    const savedResponses = localStorage.getItem('letterResponses');
-    if (savedResponses) {
-      setResponses(JSON.parse(savedResponses));
-    }
+    // Fetch responses from Firestore when the component mounts
+    const responsesQuery = query(collection(db, 'letterResponses'), orderBy('timestamp', 'desc'));
+    const unsubscribe = onSnapshot(responsesQuery, (snapshot) => {
+      const fetchedResponses = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      setResponses(fetchedResponses);
+    });
+
+    return () => unsubscribe(); // Clean up the listener when the component unmounts
   }, []);
 
-  const saveResponses = (updatedResponses) => {
-    setResponses(updatedResponses);
-    localStorage.setItem('letterResponses', JSON.stringify(updatedResponses));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (response.trim()) {
-      const newResponse = {
-        id: Date.now(),
-        message: response.trim(),
-        timestamp: new Date().toISOString(),
-        category: selectedCategory,
-        reactions: {}
-      };
-
-      saveResponses([...responses, newResponse]);
-      setSubmitted(true);
+  const saveResponses = async (newResponse) => {
+    try {
+      // Use Firestore's server timestamp
+      const responseWithTimestamp = { ...newResponse, timestamp: serverTimestamp() };
+      await addDoc(collection(db, 'letterResponses'), responseWithTimestamp); // Add the response to Firestore
       toast.success('Your response has been submitted! 💖', {
         position: "bottom-right",
         autoClose: 3000,
       });
+    } catch (error) {
+      toast.error('Failed to submit your response. Please try again.', {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+      console.error('Error submitting response:', error); // Log error for debugging
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (response.trim()) {
+      const newResponse = {
+        message: response.trim(),
+        category: selectedCategory,
+        reactions: {}, // Initialize reactions as an empty object
+      };
+
+      await saveResponses(newResponse);
+      setSubmitted(true);
     } else {
       toast.error('Please write a response before submitting', {
         position: "bottom-right",
@@ -49,26 +64,41 @@ const SpecialLetter = () => {
     }
   };
 
-  const handleDelete = (responseId) => {
+  const handleDelete = async (responseId) => {
     if (window.confirm('Are you sure you want to delete this response?')) {
-      const updatedResponses = responses.filter(r => r.id !== responseId);
-      saveResponses(updatedResponses);
-      toast.success('Response deleted successfully', {
+      try {
+        await deleteDoc(doc(db, 'letterResponses', responseId)); // Delete the response from Firestore
+        toast.success('Response deleted successfully', {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } catch (error) {
+        toast.error('Failed to delete response. Please try again.', {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
+    }
+  };
+
+  const handleUpdateResponse = async (updatedResponse) => {
+    try {
+      await updateDoc(doc(db, 'letterResponses', updatedResponse.id), updatedResponse); // Update the response in Firestore
+      toast.success('Response updated successfully', {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    } catch (error) {
+      toast.error('Failed to update response. Please try again.', {
         position: "bottom-right",
         autoClose: 3000,
       });
     }
   };
 
-  const handleUpdateResponse = (updatedResponse) => {
-    const updatedResponses = responses.map(r => 
-      r.id === updatedResponse.id ? updatedResponse : r
-    );
-    saveResponses(updatedResponses);
-  };
-
   return (
     <div className="special-letter p-6 bg-gradient-to-br from-violet-500 via-lilac-400 to-lavender-300 rounded-lg shadow-md max-w-2xl mx-auto mt-10">
+      {/* Pre-existing letter */}
       <h1 className="text-4xl font-extrabold text-center text-violet-900 mb-6">A Special Request</h1>
       <p className="text-lg text-violet-900 text-left">Dear Amori,</p>
       <p className="text-lg text-violet-900 text-justify my-4">
@@ -95,6 +125,8 @@ const SpecialLetter = () => {
       <p className="text-lg text-violet-900 text-right mt-2">
         Ken
       </p>
+
+      {/* Response Section */}
       <div className="response-section mt-8 bg-white/80 p-6 rounded-lg">
         <div className="flex justify-between items-center mb-4">
           <h2 className="text-2xl font-bold text-violet-900">Your Response</h2>

@@ -16,7 +16,7 @@ import './styles/styles/particles.css';
 import DailyQuote from './components/DailyQuote/DailyQuote';
 import AnniversaryCountdown from './components/AnniversaryCountdown/AnniversaryCountdown';
 import InteractiveStorybook from './components/InteractiveStorybook/InteractiveStorybook';
-import LoveNotesJar from './components/LoveNotesJar/LoveNotesJar';
+// import LoveNotesJar from './components/LoveNotesJar/LoveNotesJar';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -84,7 +84,6 @@ function App() {
                     <Timeline />
                     <AnniversaryCountdown />
                     <InteractiveStorybook />
-                    <LoveNotesJar />
                     <FavoritesAndPersonalities favorites={favorites} personalities={personalities} />
                     <Messages />
                     <AuthorSection />
