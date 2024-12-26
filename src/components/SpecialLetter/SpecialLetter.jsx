@@ -222,8 +222,18 @@ const SpecialLetter = () => {
             </div>
           </form>
         ) : (
-          <div className="text-center mt-4">
+          <div className="text-center mt-4 space-y-4">
             <h3 className="text-lg text-violet-700">Response Submitted Successfully!</h3>
+            <button
+              onClick={() => {
+                setSubmitted(false);
+                setResponse('');
+                setSelectedCategory('General');
+              }}
+              className="bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-600 transition-colors duration-300"
+            >
+              Submit Another Response
+            </button>
           </div>
         )}
       </div>
