@@ -9,7 +9,7 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
-      external: ['firebase/app' ,'firebase/firestore'],
+      external: ['firebase/app', 'firebase/firestore'], // Added firebase/app
     },
   },
 })
