@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { db } from '../../firebaseConfig'; // Import Firestore
 import { collection, query, orderBy, onSnapshot, addDoc, doc, deleteDoc, updateDoc, serverTimestamp } from 'firebase/firestore'; // Firestore methods
+import { Timestamp } from 'firebase/firestore'; // To handle Firestore timestamps
 import ResponseView from './ResponseView';
 
 const CATEGORIES = ['Love', 'Thoughts', 'Feelings', 'Future', 'General'];
@@ -12,15 +13,24 @@ const SpecialLetter = () => {
   const [responses, setResponses] = useState([]);
   const [viewResponses, setViewResponses] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('General');
+  const [password, setPassword] = useState('');
+  const [passwordCorrect, setPasswordCorrect] = useState(false);
+
+  const correctPassword = 'iloveyou'; // Replace with your own secure password
 
   useEffect(() => {
     // Fetch responses from Firestore when the component mounts
     const responsesQuery = query(collection(db, 'letterResponses'), orderBy('timestamp', 'desc'));
     const unsubscribe = onSnapshot(responsesQuery, (snapshot) => {
-      const fetchedResponses = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+      const fetchedResponses = snapshot.docs.map((doc) => {
+        const data = doc.data();
+        const timestamp = data.timestamp instanceof Timestamp ? data.timestamp.toDate() : null;
+        return {
+          id: doc.id,
+          ...data,
+          timestamp: timestamp ? timestamp.toLocaleString() : 'No date', // Format the timestamp as a string
+        };
+      });
       setResponses(fetchedResponses);
     });
 
@@ -33,12 +43,12 @@ const SpecialLetter = () => {
       const responseWithTimestamp = { ...newResponse, timestamp: serverTimestamp() };
       await addDoc(collection(db, 'letterResponses'), responseWithTimestamp); // Add the response to Firestore
       toast.success('Your response has been submitted! 💖', {
-        position: "bottom-right",
+        position: 'bottom-right',
         autoClose: 3000,
       });
     } catch (error) {
       toast.error('Failed to submit your response. Please try again.', {
-        position: "bottom-right",
+        position: 'bottom-right',
         autoClose: 3000,
       });
       console.error('Error submitting response:', error); // Log error for debugging
@@ -58,7 +68,7 @@ const SpecialLetter = () => {
       setSubmitted(true);
     } else {
       toast.error('Please write a response before submitting', {
-        position: "bottom-right",
+        position: 'bottom-right',
         autoClose: 3000,
       });
     }
@@ -69,12 +79,12 @@ const SpecialLetter = () => {
       try {
         await deleteDoc(doc(db, 'letterResponses', responseId)); // Delete the response from Firestore
         toast.success('Response deleted successfully', {
-          position: "bottom-right",
+          position: 'bottom-right',
           autoClose: 3000,
         });
       } catch (error) {
         toast.error('Failed to delete response. Please try again.', {
-          position: "bottom-right",
+          position: 'bottom-right',
           autoClose: 3000,
         });
       }
@@ -85,12 +95,25 @@ const SpecialLetter = () => {
     try {
       await updateDoc(doc(db, 'letterResponses', updatedResponse.id), updatedResponse); // Update the response in Firestore
       toast.success('Response updated successfully', {
-        position: "bottom-right",
+        position: 'bottom-right',
         autoClose: 3000,
       });
     } catch (error) {
       toast.error('Failed to update response. Please try again.', {
-        position: "bottom-right",
+        position: 'bottom-right',
+        autoClose: 3000,
+      });
+    }
+  };
+
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (password === correctPassword) {
+      setPasswordCorrect(true);
+      setPassword('');
+    } else {
+      toast.error('Incorrect password. Please try again.', {
+        position: 'bottom-right',
         autoClose: 3000,
       });
     }
@@ -139,11 +162,34 @@ const SpecialLetter = () => {
         </div>
 
         {viewResponses ? (
-          <ResponseView 
-            responses={responses} 
-            onDelete={handleDelete}
-            onUpdateResponse={handleUpdateResponse}
-          />
+          passwordCorrect ? (
+            <ResponseView 
+              responses={responses} 
+              onDelete={handleDelete}
+              onUpdateResponse={handleUpdateResponse}
+            />
+          ) : (
+            <form onSubmit={handlePasswordSubmit} className="space-y-4">
+              <div className="flex items-center space-x-2 mb-4">
+                <label className="text-violet-700">Enter Password:</label>
+                <input
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="p-2 rounded border-2 border-violet-300 focus:border-violet-500"
+                  placeholder="Enter password to view responses"
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-600 transition-colors duration-300"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
+          )
         ) : !submitted ? (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="flex items-center space-x-2 mb-4">
@@ -165,37 +211,21 @@ const SpecialLetter = () => {
               onChange={(e) => setResponse(e.target.value)}
               placeholder="Write your response here..."
               className="w-full h-40 p-4 rounded-lg border-2 border-violet-300 focus:border-violet-500 focus:ring focus:ring-violet-200 focus:ring-opacity-50 resize-none"
-              disabled={submitted}
             />
             <div className="flex justify-end">
               <button
                 type="submit"
                 className="bg-violet-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-violet-600 transition-colors duration-300"
               >
-                Send Response 💌
+                Submit Response
               </button>
             </div>
           </form>
         ) : (
-          <div className="text-center py-8">
-            <p className="text-lg text-violet-900">Thank you for your response! 💖</p>
-            <p className="text-sm text-violet-700 mt-2">Your message has been sent with love.</p>
-            <button
-              onClick={() => {
-                setSubmitted(false);
-                setResponse('');
-              }}
-              className="mt-4 text-violet-600 hover:text-violet-800 transition-colors duration-300"
-            >
-              Write Another Response 💝
-            </button>
+          <div className="text-center mt-4">
+            <h3 className="text-lg text-violet-700">Response Submitted Successfully!</h3>
           </div>
         )}
-      </div>
-      <div className="text-center mt-6">
-        <a href="/" className="bg-white text-violet-500 font-bold py-2 px-4 rounded hover:bg-violet-500 hover:text-white transition-colors duration-300">
-          Back to Main
-        </a>
       </div>
     </div>
   );
